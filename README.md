@@ -30,4 +30,35 @@ if you wan't to improve this structure fill free to contribute
  
 #####Load Image with Callback Listener
  imageLoader.setListener(your listener);
-
+ 
+## and this is the core of the class you can change this line of codes dynamically
+ 
+ 
+ ```
+   public void load() {
+        this.ownListener = this;
+        if (imageView != null && progressBar != null) {
+            imageView.setVisibility(View.GONE);
+            progressBar.setVisibility(View.VISIBLE);
+        }
+        //you can change this dynamically
+        //http://inthecheesefactory.com/blog/get-to-know-glide-recommended-by-google/en
+        Glide.with(context)
+                .load("http://inthecheesefactory.com/uploads/source/glidepicasso/cover.jpg")
+                .into(imageView);
+        Glide.with(context)
+                .load(imageUrl)
+                .listener(new RequestListener<String, GlideDrawable>() {
+                    @Override
+                    public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
+                        ownListener.onError();
+                        return false;
+                    }
+                    @Override
+                    public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
+                        ownListener.onSuccess();
+                        return false;
+                    }
+                }).centerCrop().override(targetWidth, targetHeight).into(imageView);
+    }
+```
