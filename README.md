@@ -31,8 +31,7 @@ if you wan't to improve this structure fill free to contribute
 #####Load Image with Callback Listener
  imageLoader.setListener(your listener);
  
-## and this is the core of the class you can change this line of codes dynamically
- 
+## and this is the core of the structure from ImageLoader class you can change this line of codes dynamically
  
  ```
    public void load() {
